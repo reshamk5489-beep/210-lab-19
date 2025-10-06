@@ -29,7 +29,7 @@ int main()
         cout << "Processing review #" << i << endl;
         
 
-        randomRating = rand() / 5.0; // Random rating between 1.0 and 5.0
+        randomRating = ((rand() % 50 + 1.0) * 10) / 10.0;
 
         while (getline(inFile, reviewComment))
         {
