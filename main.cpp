@@ -4,6 +4,8 @@
 #include <vector>
 using namespace std;
 
+const int MOVIE_COUNT = 4;
+
 // Comment #1: Define a struct named Node that contains a double rating, a string comment, and a pointer to the next Node.
 struct Node
 {
@@ -49,35 +51,26 @@ class Movie
             }        
         }
 
-        double getAverageReview() const
+        void printOutput() const
         {
             Node *current = head;
-            double total = 0.0;
+            int reviewNum = 0;
             int commentCount = 0;
+            double total = 0.0;
+
+            cout << "Movie Title: " << title << endl;
 
             while (current != nullptr)
             {
                 commentCount++;        
                 total += current->rating;
-                current = current->next;
-            }
-
-            return total/commentCount;
-        }
-
-        void printOutput() const
-        {
-            Node *current = head;
-            int reviewNum = 0;
-
-            while (current != nullptr)
-            {
                 // Comment #10: Calculate the total of the sum of the ratings.
-                cout << "Movie Title: " << title << endl;
                 cout << "\t> Review #" << ++reviewNum << ": " << current->rating << ": " << current->comment << endl;
-                
+
                 current = current->next;
             }
+
+            cout << "\t> Average: " << total/commentCount << endl;
         }
 };
 
@@ -89,21 +82,18 @@ int main()
     double randomRating;
     string reviewComment;
 
-    vector<Movie> movies(5);
+    vector<Movie> movies(MOVIE_COUNT);
     movies[0].setTitle("Titanic");
     movies[1].setTitle("Twilight");
     movies[2].setTitle("Avatar");
     movies[3].setTitle("Jurassic Park");
-    movies[4].setTitle("Zootopia");
 
     ifstream inFile("review.txt");
     int i = 0;
 
     // Comment #2: Write a loop that continues to ask the user to enter review ratings and comments until they choose to stop.
-    while (i++ < 5)
+    while (i < MOVIE_COUNT)
     {
-        randomRating = (rand() % 41) / 10.0 + 1.0; // Random rating between 1.0 and 5.0
-
         while (getline(inFile, reviewComment))
         {
             if (reviewComment == "") // Movie comments are separated by new lines in the reviews.txt file
@@ -115,19 +105,22 @@ int main()
             Node *temp = new Node;
             temp->next = nullptr;
 
+            randomRating = (rand() % 41) / 10.0 + 1.0; // Random rating between 1.0 and 5.0
+
             temp->rating = randomRating;
             temp->comment = reviewComment;
 
             movies[i].addNodeToHead(temp);
         }
+
+        i++;
     }
 
-    cout << "Outputting all reviews:" << endl;
+    cout << "Outputting all reviews:" << endl << endl;
     
-    for (int i = 0; i < 5; ++i)
+    for (int i = 0; i < MOVIE_COUNT; ++i)
     {
         movies[i].printOutput();
-        cout << "\t> Average: " << movies[i].getAverageReview() << endl;
     }
 
     return 0;
