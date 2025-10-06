@@ -1,6 +1,7 @@
 #include <iostream>
 #include <iomanip>
 #include <fstream>
+#include <vector>
 using namespace std;
 
 // Comment #1: Define a struct named Node that contains a double rating, a string comment, and a pointer to the next Node.
@@ -18,9 +19,17 @@ class Movie
         Node *head; // Pointer to the head of the linked list
     
     public:
-        Movie(string title);
-        printOutput();
-}
+        Movie(string movieTitle)
+        {
+            title = movieTitle;
+            head = nullptr;
+        }
+        void addNodeToHead(string comment, double rating)
+        {
+            head->
+        }
+        void printOutput();
+};
 
 int main()
 {
@@ -31,12 +40,18 @@ int main()
     double randomRating;
     string reviewComment;
 
+    vector<Movie> movies = 
+    {
+
+    };
+
     ifstream inFile("review.txt");
     int i = 0;
 
     // Comment #2: Write a loop that continues to ask the user to enter review ratings and comments until they choose to stop.
     while (i++ < 5)
     {
+        movies[0].
         cout << "Processing review #" << i << endl;
 
         randomRating = (rand() % 41) / 10.0 + 1.0; // Random rating between 1.0 and 5.0
