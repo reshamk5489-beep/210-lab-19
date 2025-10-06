@@ -11,6 +11,17 @@ struct Node
     Node *next;
 };
 
+class Movie
+{
+    private:
+        string title;
+        Node *head; // Pointer to the head of the linked list
+    
+    public:
+        Movie(string title);
+        printOutput();
+}
+
 int main()
 {
     cout << fixed << setprecision(1);
@@ -27,9 +38,9 @@ int main()
     while (i++ < 5)
     {
         cout << "Processing review #" << i << endl;
-        
 
-        randomRating = ((rand() % 50 + 1.0) * 10) / 10.0;
+        randomRating = (rand() % 41) / 10.0 + 1.0; // Random rating between 1.0 and 5.0
+        cout << "\t> Generated random rating: " << randomRating << endl;
 
         while (getline(inFile, reviewComment))
         {
@@ -52,6 +63,11 @@ int main()
                 // Comment #5: If the linked list is empty, set head to point to the new Node.
                 head = temp;
             }
+            else
+            {
+                temp->next = head;
+                head = temp;
+            }
         }
     }
 
@@ -72,6 +88,8 @@ int main()
     }
 
     // Comment #11: Calculate the average rating.
+    cout << "Total: " << total << endl;
+    cout << "Total reviews: " << reviewNum << endl;
     cout << "\t> Average: " << total/reviewNum << endl;
 
     return 0;
