@@ -16,24 +16,17 @@ int main()
     cout << fixed << setprecision(1);
     srand (time(0));
 
-    int userChoice = 0;
     Node *head = nullptr;
-    char yesOrNo;
     double randomRating;
     string reviewComment;
 
-    cout << "Which linked list method should we use?" << endl;
-    cout << "[1] New nodes are added at the head of the linked list" << endl;
-    cout << "[2] New nodes are added at the tail of the linked list" << endl;
-    cout << "Choice: ";
-
-    cin >> userChoice;
-
     ifstream inFile("reviews.txt");
+    int i = 0;
 
     // Comment #2: Write a loop that continues to ask the user to enter review ratings and comments until they choose to stop.
-    while (true)
+    while (i++ < 5)
     {
+        cout << "Processing review #" << i << endl;
         // Comment #3: Create a new Node.
         Node *temp = new Node;
         temp->next = nullptr;
@@ -42,6 +35,7 @@ int main()
 
         while (inFile >> reviewComment)
         {
+            cout << "\t> Read review comment: " << reviewComment << endl;
             if (reviewComment == "") // Movie comments are separated by new lines in the reviews.txt file
             {
                 break;
@@ -54,27 +48,6 @@ int main()
             {
                 // Comment #5: If the linked list is empty, set head to point to the new Node.
                 head = temp;
-            }
-            else 
-            {
-                // Comment #6: If the linked list is not empty, add the new Node to the head or tail based on userChoice.
-                if (userChoice == 1)
-                {
-                    // Comment #7: Add to the front
-                    temp->next = head;
-                    head = temp;
-                }
-                else 
-                {
-                    // Comment #8: Add to the tail
-                    Node *current = head;
-                    while (current->next != nullptr)
-                    {
-                        current = current->next;
-                    }
-
-                    current->next = temp;
-                }
             }
         }
     }
