@@ -39,19 +39,23 @@ class Movie
             }        
         }
 
-        double getRatingTotal()
+        double getAverageReview() const
         {
             Node *current = head;
             double total = 0.0;
+            int commentCount = 0;
 
             while (current != nullptr)
             {
+                commentCount++;        
                 total += current->rating;
                 current = current->next;
             }
+
+            return total/commentCount;
         }
 
-        void printOutput()
+        void printOutput() const
         {
             Node *current = head;
             int reviewNum = 0;
@@ -115,25 +119,12 @@ int main()
     }
 
     cout << "Outputting all reviews:" << endl;
-
-    Node *current = head;
-    int reviewNum = 0;
-    double total = 0.0;
-
-    // Comment #9: Write a loop that traverses the linked list.
-    while (current != nullptr)
+    
+    for (int i = 0; i < 5; ++i)
     {
-        // Comment #10: Calculate the total of the sum of the ratings.
-        total += current->rating;
-        cout << "\t> Review #" << ++reviewNum << ": " << current->rating << ": " << current->comment << endl;
-        
-        current = current->next;
+        movies[i].printOutput();
+        cout << "\t> Average: " << movies[i].getAverageReview() << endl;
     }
-
-    // Comment #11: Calculate the average rating.
-    cout << "Total: " << total << endl;
-    cout << "Total reviews: " << reviewNum << endl;
-    cout << "\t> Average: " << total/reviewNum << endl;
 
     return 0;
 }
