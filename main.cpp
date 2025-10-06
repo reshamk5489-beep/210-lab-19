@@ -19,10 +19,20 @@ class Movie
         Node *head; // Pointer to the head of the linked list
     
     public:
-        Movie(string movieTitle)
+        Movie()
+        {
+            title = "";
+            head = nullptr;
+        }
+
+        string getTitle() const
+        {
+            return title;
+        }
+
+        void setTitle(string movieTitle)
         {
             title = movieTitle;
-            head = nullptr;
         }
 
         void addNodeToHead(Node *node)
@@ -63,6 +73,7 @@ class Movie
             while (current != nullptr)
             {
                 // Comment #10: Calculate the total of the sum of the ratings.
+                cout << "Movie Title: " << title << endl;
                 cout << "\t> Review #" << ++reviewNum << ": " << current->rating << ": " << current->comment << endl;
                 
                 current = current->next;
@@ -78,14 +89,12 @@ int main()
     double randomRating;
     string reviewComment;
 
-    vector<Movie> movies = 
-    {
-        { "Titanic" },
-        { "Twilight" },
-        { "Avatar" },
-        { "Jurassic Park" },
-        { "Zootopia" }
-    };
+    vector<Movie> movies(5);
+    movies[0].setTitle("Titanic");
+    movies[1].setTitle("Twilight");
+    movies[2].setTitle("Avatar");
+    movies[3].setTitle("Jurassic Park");
+    movies[4].setTitle("Zootopia");
 
     ifstream inFile("review.txt");
     int i = 0;
@@ -93,10 +102,7 @@ int main()
     // Comment #2: Write a loop that continues to ask the user to enter review ratings and comments until they choose to stop.
     while (i++ < 5)
     {
-        cout << "Processing review #" << i << endl;
-
         randomRating = (rand() % 41) / 10.0 + 1.0; // Random rating between 1.0 and 5.0
-        cout << "\t> Generated random rating: " << randomRating << endl;
 
         while (getline(inFile, reviewComment))
         {
@@ -104,8 +110,6 @@ int main()
             {
                 break;
             }
-
-            cout << "\t> Read review comment: " << reviewComment << endl;
 
             // Comment #3: Create a new Node.
             Node *temp = new Node;
