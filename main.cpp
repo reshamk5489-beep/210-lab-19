@@ -20,26 +20,29 @@ int main()
     double randomRating;
     string reviewComment;
 
-    ifstream inFile("reviews.txt");
+    ifstream inFile("review.txt");
     int i = 0;
 
     // Comment #2: Write a loop that continues to ask the user to enter review ratings and comments until they choose to stop.
     while (i++ < 5)
     {
         cout << "Processing review #" << i << endl;
-        // Comment #3: Create a new Node.
-        Node *temp = new Node;
-        temp->next = nullptr;
+        
 
         randomRating = rand() / 5.0; // Random rating between 1.0 and 5.0
 
-        while (inFile >> reviewComment)
+        while (getline(inFile, reviewComment))
         {
-            cout << "\t> Read review comment: " << reviewComment << endl;
             if (reviewComment == "") // Movie comments are separated by new lines in the reviews.txt file
             {
                 break;
             }
+
+            cout << "\t> Read review comment: " << reviewComment << endl;
+
+            // Comment #3: Create a new Node.
+            Node *temp = new Node;
+            temp->next = nullptr;
 
             temp->rating = randomRating;
             temp->comment = reviewComment;
