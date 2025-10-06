@@ -24,11 +24,46 @@ class Movie
             title = movieTitle;
             head = nullptr;
         }
-        void addNodeToHead(string comment, double rating)
+
+        void addNodeToHead(Node *node)
         {
-            head->
+            if (head == nullptr)
+            {
+                // Comment #5: If the linked list is empty, set head to point to the new Node.
+                head = node;
+            }
+            else
+            {
+                node->next = head;
+                head = node;
+            }        
         }
-        void printOutput();
+
+        double getRatingTotal()
+        {
+            Node *current = head;
+            double total = 0.0;
+
+            while (current != nullptr)
+            {
+                total += current->rating;
+                current = current->next;
+            }
+        }
+
+        void printOutput()
+        {
+            Node *current = head;
+            int reviewNum = 0;
+
+            while (current != nullptr)
+            {
+                // Comment #10: Calculate the total of the sum of the ratings.
+                cout << "\t> Review #" << ++reviewNum << ": " << current->rating << ": " << current->comment << endl;
+                
+                current = current->next;
+            }
+        }
 };
 
 int main()
@@ -36,13 +71,16 @@ int main()
     cout << fixed << setprecision(1);
     srand (time(0));
 
-    Node *head = nullptr;
     double randomRating;
     string reviewComment;
 
     vector<Movie> movies = 
     {
-
+        { "Titanic" },
+        { "Twilight" },
+        { "Avatar" },
+        { "Jurassic Park" },
+        { "Zootopia" }
     };
 
     ifstream inFile("review.txt");
@@ -51,7 +89,6 @@ int main()
     // Comment #2: Write a loop that continues to ask the user to enter review ratings and comments until they choose to stop.
     while (i++ < 5)
     {
-        movies[0].
         cout << "Processing review #" << i << endl;
 
         randomRating = (rand() % 41) / 10.0 + 1.0; // Random rating between 1.0 and 5.0
@@ -73,16 +110,7 @@ int main()
             temp->rating = randomRating;
             temp->comment = reviewComment;
 
-            if (head == nullptr)
-            {
-                // Comment #5: If the linked list is empty, set head to point to the new Node.
-                head = temp;
-            }
-            else
-            {
-                temp->next = head;
-                head = temp;
-            }
+            movies[i].addNodeToHead(temp);
         }
     }
 
